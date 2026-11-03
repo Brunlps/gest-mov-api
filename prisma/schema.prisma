@@ -9,7 +9,7 @@ datasource db {
 }
 
 model historico_imovel {
-  id               String     @id @db.Uuid
+  id               String     @id @db.Uuid @default(uuid())
   descricao        String
   data_entrada     DateTime   @db.Date
   data_saida       DateTime   @db.Date
@@ -24,11 +24,11 @@ model historico_imovel {
   locatarios       locatarios @relation(fields: [locatario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "historico_imovel_locatario_fk")
 }
 
-model historico_manutecao {
-  id        String    @id @db.Uuid
+model historico_manutencoes {
+  id        String    @id @db.Uuid @default(uuid())
   descricao String
-  valor     Float
-  data      DateTime  @default(dbgenerated("CURRENT_DATE")) @db.Date
+  valor     Float     @default(0)
+  data      DateTime  @db.Date
   imovel_id String    @db.Uuid
   createdAt DateTime  @default(now()) @db.Timestamp(6)
   updatedAt DateTime? @default(now()) @db.Timestamp(6)
@@ -36,7 +36,7 @@ model historico_manutecao {
 }
 
 model imoveis {
-  id                  String                @id @db.Uuid
+  id                  String                @id @db.Uuid @default(uuid())
   matricula           Int?
   logrador            String                @db.VarChar(50)
   bairro              String                @db.VarChar(50)
@@ -58,13 +58,13 @@ model imoveis {
   createdAt           DateTime              @default(now()) @db.Timestamp(6)
   updatedAt           DateTime?             @default(now()) @db.Timestamp(6)
   historico_imovel    historico_imovel[]
-  historico_manutecao historico_manutecao[]
+  historico_manutecao historico_manutencoes[]
   locatarios          locatarios?           @relation(fields: [locatario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "imoveis_locatario_fk")
   imoveis_tipo        imoveis_tipo          @relation(fields: [tipo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "imoveis_tipo_fk")
 }
 
 model imoveis_tipo {
-  id        String    @id @db.Uuid
+  id        String    @id @db.Uuid @default(uuid())
   nome      String    @db.VarChar(50)
   createdAt DateTime  @default(now()) @db.Timestamp(6)
   updatedAt DateTime? @default(now()) @db.Timestamp(6)
@@ -72,7 +72,7 @@ model imoveis_tipo {
 }
 
 model locatarios {
-  id               String             @id @db.Uuid
+  id               String             @id @db.Uuid @default(uuid())
   nome             String             @db.VarChar(50)
   telefone         String             @db.VarChar(50)
   cpf_cnpj         String             @unique @db.VarChar(20)
@@ -83,7 +83,7 @@ model locatarios {
 }
 
 model niveis {
-  id        String     @id @db.Uuid
+  id        String     @id @db.Uuid @default(uuid())
   nome      String     @db.VarChar(50)
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime?  @default(now()) @db.Timestamp(6)
@@ -91,7 +91,7 @@ model niveis {
 }
 
 model usuarios {
-  id        String    @id @db.Uuid
+  id        String    @id @db.Uuid @default(uuid())
   nome      String    @db.VarChar(50)
   email     String    @unique @db.VarChar(50)
   senha     String    @db.VarChar(255)

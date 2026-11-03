@@ -1,5 +1,5 @@
-const { PrismaClientRustPanicError } = require("../generated/prisma");
+const { PrismaClient } = require("../generated/prisma");
 
-const PRISMA = new PrismaClientRustPanicError;
+const PRISMA = new PrismaClient();
 
 module.exports = PRISMA;
