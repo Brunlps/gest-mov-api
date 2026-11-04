@@ -5,11 +5,12 @@ async function buscar(req, res) {
         const linhas = await PRISMA.niveis.findMany();
 
         res.json(linhas)
+        
 
     } catch (error) {
         res.json({
             type: "error",
-            description: error.messager
+            description: error.message
         });
     }
 }

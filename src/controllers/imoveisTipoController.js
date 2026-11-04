@@ -7,9 +7,9 @@ async function buscar(req, res) {
         res.json(linhas)
 
     } catch (error) {
-        req.json({
+        res.json({
             type: "error",
-            description: error.messager
+            description: error.message
         });
     }
 }

@@ -1,16 +1,15 @@
 function validadorDados(req, res, next) {
-    const { nome } = req.boby;
+    const { nome } = req.body || {};
 
     if (!nome) {
-        res.json({
+        return res.status(400).json({
             type: "warning",
-            description: "Coluna nome não insformada"
-        })
+            description: "Coluna nome não informada"
+        });
     }
 
     next();
-
-};
+}
 
 module.exports = {
     validadorDados
